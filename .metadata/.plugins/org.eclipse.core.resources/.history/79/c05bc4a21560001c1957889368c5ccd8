@@ -1,0 +1,7 @@
+package main;
+
+import javax.swing.JButton;
+
+public class Cell extends JButton{
+	int score;
+}

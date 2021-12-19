@@ -1,0 +1,56 @@
+package main;
+
+public enum Option {
+	
+	ETTOR{
+		
+	},
+	TVÅOR{
+			
+	},
+	TREOR{
+		
+	},
+	FYROR{
+			
+	},
+	FEMMOR{
+		
+	},
+	SEXOR{
+			
+	},
+	BONUS{
+		
+	},
+	PAR{
+			
+	},
+	TVÅ_PAR{
+		
+	},
+	TRISS{
+			
+	},
+	FYRTAL{
+		
+	},
+	KÅK{
+			
+	},PAR{
+		
+	},
+	TVÅ_PAR{
+		
+	},
+	TRISS{
+			
+	},
+	FYRTAL{
+		
+	},
+	KÅK{
+			
+	},
+
+}

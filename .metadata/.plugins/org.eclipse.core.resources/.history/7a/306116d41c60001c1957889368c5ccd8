@@ -1,0 +1,34 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+public class ScoreBoard {
+	
+	public static int colWidth = 100;
+	public static int cellLength = 30;
+	public static int colLength = 18*cellLength;
+	Column[] cols;
+	
+	int posX = 600;
+	int posY = 50;
+	
+	public ScoreBoard(String[] names) {
+		cols = new Column[names.length];
+		for(int i = 0; i < names.length; i++) {
+			cols[i] = new Column(names[i], posX + (colWidth*i), posY);
+		}
+	}
+	
+	
+	
+	public void render(Graphics2D g) {
+	g.setColor(Color.white);
+	g.fillRect(posX, posY, cols.length*colWidth, colLength);
+	
+	for(Column c : cols) {
+		c.render(g);
+	}
+	}
+	
+}

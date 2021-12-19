@@ -1,0 +1,18 @@
+package main;
+
+import javax.swing.JButton;
+
+public class Cell extends JButton{
+	int score = 0;
+	String text;
+	
+	public Cell() {
+		text = Integer.toString(score);
+		super.setText(text);
+		
+	}
+	
+	public void render() {
+		
+	}
+}

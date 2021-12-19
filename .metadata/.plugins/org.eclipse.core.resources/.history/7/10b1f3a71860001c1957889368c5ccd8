@@ -1,0 +1,11 @@
+package main;
+
+public class Column {
+	Cell[] cells;
+	String name;
+	int score;
+	
+	public Column(String _name) {
+		name = _name;
+	}
+}

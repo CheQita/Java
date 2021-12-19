@@ -1,0 +1,37 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class Cell extends JButton{
+	int score = 0;
+	int posX;
+	int posY;
+	int width;
+	int length;
+	String text;
+	
+	public Cell(int _posX, int _posY, int _width, int _length) {
+		posX = _posX;
+		posY = _posY;
+		width = _width;
+		length = _length;
+		text = Integer.toString(score);
+		super.setText(text);
+		super.addActionListener(new ActionListener(){  
+	    	  public void actionPerformed(ActionEvent e){ 
+		  		score++;
+	          }
+	      });   
+		
+	}
+	
+	public void render(Graphics2D g) {
+		g.setColor(new Color(125-score, 125-score, 125-score));
+		g.fillRect(posX, posY, width, length);
+	}
+}

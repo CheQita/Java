@@ -1,0 +1,20 @@
+package main;
+
+import java.awt.Graphics2D;
+
+public class Column {
+	Cell[] cells;
+	String name;
+	int score;
+	int nCols = 
+	
+	public Column(String _name) {
+		name = _name;
+		
+		
+	}
+	
+	public void render(Graphics2D g) {
+		
+	}
+}

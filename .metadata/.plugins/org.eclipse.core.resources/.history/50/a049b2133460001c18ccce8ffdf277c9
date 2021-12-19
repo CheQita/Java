@@ -1,0 +1,15 @@
+package main;
+
+import java.util.ArrayList;
+
+public class SavedSection {
+	int posX = 500 ;
+	int posY = 50;
+	ArrayList<Die> dice;
+	
+	public SavedSection() {
+		dice = new ArrayList<>();
+	}
+	
+	
+}

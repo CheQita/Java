@@ -1,0 +1,32 @@
+package main;
+
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+public class Player {
+	String name;
+	ArrayList<Die> dice;
+	SavedSection savedSection;
+	
+	public Player(String _name) {
+		name = _name;
+		dice = new ArrayList<>();
+		for(int i=0; i<dice.length; i++) {
+			dice.add(new Die(i+1, 350 + (i* 50), 50));
+			
+		}
+	}
+	
+	public void rollDice() {
+		for(Die d : dice) {
+			d.roll();
+		}
+	}
+	
+	public void renderDice(Graphics2D g) {
+		//for(Die d : dice) {
+			//d.render(g);
+		//}
+	}
+	
+}

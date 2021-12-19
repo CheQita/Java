@@ -1,0 +1,71 @@
+package main;
+
+public enum CellOption {
+	
+	NAMN{
+		String label() {
+			return "Spelare:";
+		}
+	},
+	ETTOR{
+		String label() {
+			return "Spelare:";
+		}
+		
+	},
+	TVÅOR{
+			
+	},
+	TREOR{
+		
+	},
+	FYROR{
+			
+	},
+	FEMMOR{
+		
+	},
+	SEXOR{
+			
+	},
+	BONUS{
+		
+	},
+	PAR{
+			
+	},
+	TVÅ_PAR{
+		
+	},
+	TRISS{
+			
+	},
+	FYRTAL{
+		
+	},
+	KÅK{
+			
+	},
+	LITEN_STEGE{
+		
+	},
+	STOR_STEGE{
+		
+	},
+	CHANS{
+			
+	},
+	YATSY{
+		
+	},
+	SUMMA{
+			
+	};
+	String text;
+	private CellOption() {
+		
+	}
+	String label() {
+		return "Okänd";
+	}
+}

@@ -1,0 +1,22 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+public class ScoreBoard {
+	Column[] cols;
+	
+	public ScoreBoard(String[] names) {
+		for(int i = 0; i < names.length; i++) {
+			
+		}
+	}
+	
+	
+	
+	public void render(Graphics2D g) {
+	g.setColor(Color.white);
+	g.fillRect(600, 50, cols.length*50, 600);
+	}
+	
+}

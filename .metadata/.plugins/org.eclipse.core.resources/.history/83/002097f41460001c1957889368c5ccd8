@@ -1,0 +1,14 @@
+package main;
+
+public class ScoreBoard {
+	Column[] cols;
+	
+	public ScoreBoard(String[] names) {
+		
+	}
+	
+	
+	
+	public void render();
+	
+}
