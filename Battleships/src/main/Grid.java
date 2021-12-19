@@ -3,11 +3,14 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Grid extends JPanel{
-	JButton [][] cells;
+	Cell [][] cells;
+	Ship[] ships;
 	int posX, posY;
 	public Grid(int _posX, int _posY, int _cellSize) {	
 		posX = _posX;
@@ -17,7 +20,7 @@ public class Grid extends JPanel{
 		setLocation(_posX+1000, _posY);
 		setBackground(Color.BLACK);
 		
-		cells = new JButton[10][10];
+		cells = new Cell[10][10];
 		for(int y=0; y< 10; y++) {
 			for(int x=0; x< 10; x++) {
 				Cell cell = new Cell();
@@ -25,5 +28,11 @@ public class Grid extends JPanel{
 				add(cell);
 			}
 		}
+		spawnShips();
+	}
+	
+	public void spawnShips() {
+		new Ship(ShipType.CARRIER, new Point(8, 4), new Point(0, 1), this);
+		new Ship(ShipType.BATTLESHIP, new Point(0, 0), new Point(1, 0), this);
 	}
 }
