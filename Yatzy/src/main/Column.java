@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics2D;
 
+import main_v2.CellOption;
+
 public class Column {
 	Cell[] cells;
 	String name;

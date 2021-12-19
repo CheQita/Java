@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import main_v2.CellOption;
+
 public class Cell extends JButton{
 	int score = 0;
 	int posX;
