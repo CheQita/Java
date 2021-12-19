@@ -1,9 +1,0 @@
-package main;
-
-public class Player {
-	String name;
-	
-	public Player() {
-		name = "lol";
-	}
-}
