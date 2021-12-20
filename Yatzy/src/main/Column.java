@@ -12,17 +12,17 @@ public class Column extends JPanel{
 	CellOption[] cellOptions = new CellOption[] {
 			CellOption.NAMN,
 			CellOption.ETTOR,
-			CellOption.TVÅOR,
+			CellOption.TVÃ…OR,
 			CellOption.TREOR,
 			CellOption.FYROR,
 			CellOption.FEMMOR,
 			CellOption.SEXOR,
 			CellOption.BONUS,
 			CellOption.PAR,
-			CellOption.TVÅ_PAR,
+			CellOption.TVÃ…_PAR,
 			CellOption.TRISS,
 			CellOption.FYRTAL,
-			CellOption.KÅK,
+			CellOption.KÃ…K,
 			CellOption.LITEN_STEGE,
 			CellOption.STOR_STEGE,
 			CellOption.CHANS,
@@ -38,6 +38,7 @@ public class Column extends JPanel{
 		cells[0] = new Cell();
 		cells[0].setText(name);
 		cells[0].setEnabled(false);
+		cells[0].lock();
 		add(cells[0]);
 		
 		
@@ -58,6 +59,13 @@ public class Column extends JPanel{
 		for(Cell c : cells) {
 			if(!c.locked)
 				c.setEnabled(b);
+		}
+	}
+	public void updateOptionValues(Die[] dice) {
+		for(CellOption co : cellOptions) {
+			if(co.index()!= 0) {
+			getCell(co).setValue(co.calculateScore(dice, this));
+			}
 		}
 	}
 

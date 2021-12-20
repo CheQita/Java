@@ -43,17 +43,19 @@ public class DicePanel extends JPanel{
 		}
 	}
 	public void addRollButton() {
-		rollButton = new JButton("Rulla tärningar");
+		rollButton = new JButton("Rulla tÃ¤rningar");
 		rollButton.setPreferredSize(new Dimension(150, 40));
 		rollButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(currentPlayer.nRolls > 0) {
-				currentPlayer.nRolls--;
+				currentPlayer.nRolls--;	
 				updateInfo();
 				rollDice();
+				currentPlayer.column.updateOptionValues(dice);
+				
 				}else {
 					//visa meddelande
-					System.out.println("Det kan du icke göra");
+					System.out.println("Det kan du icke gÃ¶ra");
 				}
 			}
 		});

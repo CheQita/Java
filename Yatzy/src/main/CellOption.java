@@ -19,9 +19,9 @@ public enum CellOption {
 		}
 		
 	},
-	TVÅOR{
+	TVÃ…OR{
 		String label() {
-			return "Tvåor";
+			return "TvÃ¥or";
 		}
 		int index() {
 			return 2;
@@ -61,7 +61,7 @@ public enum CellOption {
 	},
 	BONUS{
 		String label() {
-			return "Bonus";
+			return "Bonus: ";
 		}
 		int index() {
 			return 7;
@@ -74,14 +74,46 @@ public enum CellOption {
 		int index() {
 			return 8;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int similarDices = 0;
+			for(Die d1 : dice) {
+				similarDices = 0;
+				for(Die d2 : dice){
+					if (d1.value == d2.value) {
+						similarDices++;
+					}
+					if(similarDices == 2) {
+						return 12;
+					}	
+				}
+			}
+			return 0;
+				
+			}
 	},
-	TVÅ_PAR{
+	TVÃ…_PAR{
 		String label() {
-			return "Två Par";
+			return "TvÃ¥ Par";
 		}
 		int index() {
 			return 9;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int similarDices = 0;
+			for(Die d1 : dice) {
+				for(Die d2 : dice){
+					if (d1.value == d2.value) {
+						similarDices++;
+					}
+					if(similarDices == 4) {
+						return 22;
+					}	
+				}
+			}
+			return 0;
+				
+			}
+		
 	},
 	TRISS{
 		String label() {
@@ -90,6 +122,22 @@ public enum CellOption {
 		int index() {
 			return 10;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int similarDices = 0;
+			for(Die d1 : dice) {
+				similarDices = 0;
+				for(Die d2 : dice){
+					if (d1.value == d2.value) {
+						similarDices++;
+					}
+					if(similarDices == 3) {
+						return 18;
+					}	
+				}
+			}
+			return 0;
+				
+			}
 	},
 	FYRTAL{
 		String label() {
@@ -98,14 +146,47 @@ public enum CellOption {
 		int index() {
 			return 11;
 		}
+			
+		int calculateScore(Die[] dice, Column column) {
+			int similarDices = 0;
+			for(Die d1 : dice) {
+				similarDices = 0;
+				for(Die d2 : dice){
+					if (d1.value == d2.value) {
+						similarDices++;
+					}
+					if(similarDices == 4) {
+						return 24;
+					}	
+				}
+			}
+			return 0;
+				
+			}
+		
 	},
-	KÅK{
+	KÃ…K{
 		String label() {
-			return "Kåk";
+			return "KÃ¥k";
 		}
 		int index() {
 			return 12;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int similarDices = 0;
+			for(Die d1 : dice) {
+				for(Die d2 : dice){
+					if (d1.value == d2.value) {
+						similarDices++;
+					}
+					if(similarDices == 5) {
+						return 28;
+					}	
+				}
+			}
+			return 0;
+				
+			}
 	},
 	LITEN_STEGE{
 		String label() {
@@ -138,6 +219,17 @@ public enum CellOption {
 		int index() {
 			return 16;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int v = dice[0].value;
+			for(Die d : dice) {
+				if(v != d.value)
+					return 0;
+			}
+			return 50;
+		}
+		
+		
+		
 	},
 	SUMMA{
 		String label() {
@@ -146,16 +238,30 @@ public enum CellOption {
 		int index() {
 			return 17;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(int i=1; i<column.cells.length-1; i++) {
+				result += column.cells[i].value;
+			}
+			return result;
+		}
 	};
 	String text;
 	private CellOption() {
 		
 	}
 	String label() {
-		return "Okänd";
+		return "OkÃ¤nd";
 	}
 	int index() {
 		// TODO Auto-generated method stub
-		return 5;
+		return 0;
+	}
+	int calculateScore(Die[] dice, Column column) {
+		int result = 0;
+		for(Die d : dice) {
+			result += d.value;
+		}
+		return 0;
 	}
 }
