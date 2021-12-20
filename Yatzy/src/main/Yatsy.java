@@ -1,4 +1,4 @@
-package main_v2;
+package main;
 
 public class Yatsy {
 	
@@ -10,8 +10,8 @@ public class Yatsy {
 		i = new Interface(_players);
 		players = Interface.scoreBoard.players;
 		currentPlayer = players[(int)(Math.random()*players.length)];
-		currentPlayer.column.enableCells(true);
-		Interface.dicePanel.updateInfo(currentPlayer);
+		i.updateCurrentPlayer(currentPlayer);
+
 	}
 	
 	

@@ -1,4 +1,4 @@
-package main_v2;
+package main;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -70,6 +70,11 @@ public class Interface extends JFrame{
 		menuBar.add(options);
 		menuBar.add(help);
 	
+	}
+	
+	public void updateCurrentPlayer(Player p) {
+		p.column.enableCells(true);
+		dicePanel.updateCurrentPlayer(p);
 	}
 
 }

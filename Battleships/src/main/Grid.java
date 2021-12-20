@@ -17,7 +17,6 @@ public class Grid extends JPanel{
 		posY = _posY;
 		setLayout(new GridLayout(10, 10, -3, -3));
 		setPreferredSize(new Dimension(_cellSize*10, _cellSize*10));
-		setLocation(_posX+1000, _posY);
 		setBackground(Color.BLACK);
 		
 		cells = new Cell[10][10];

@@ -1,37 +1,38 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
-public class ScoreBoard {
-	
-	public static int colWidth = 85;
-	public static int cellLength = 30;
-	public static int colLength = 18*cellLength;
-	Column[] cols;
-	
-	int posX = 550;
-	int posY = 50;
-	
-	public ScoreBoard(String[] names) {
-		cols = new Column[1+ names.length];
-		Column options = new OptionsColumn("Namn: ", posX, posY);
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+
+public class ScoreBoard extends JPanel{
+	static int cellWidth = 100, cellHeight = 40;
+	static String[] names;
+	static Column[] cols;
+	static Player[] players;
+	int nPlayers;
+	public ScoreBoard(String[] _players) {
+		names = _players;
+		nPlayers = _players.length;
+		setLayout(new GridLayout(0, nPlayers+1));
+		setPreferredSize(new Dimension(cellWidth*(nPlayers+1), cellHeight*16));
+		setBorder(BorderFactory.createLineBorder(Color.black, 3));
+		setBackground(new Color(0, 50, 0));
 		
-		cols[0] = options;
-		for(int i = 1; i < 1 + names.length; i++) {
-			cols[i] = new Column(names[i-1], posX + (colWidth*i), posY);
+		createPlayers();
+			
+	}
+	public void createPlayers() {
+		cols = new Column[nPlayers];
+		players = new Player[nPlayers];
+		add(new Column("Spelare:", true));
+		for(int i=0; i< nPlayers; i++) {
+			Player p = new Player(names[i]);
+			players[i] = p;
+			add(p.column);
 		}
 	}
-	
-	
-	
-	public void render(Graphics2D g) {
-	g.setColor(Color.BLACK);
-	g.fillRect(posX, posY, cols.length*colWidth, colLength);
-	
-	for(Column c : cols) {
-		c.render(g);
-	}
-	}
-	
 }

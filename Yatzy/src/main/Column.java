@@ -1,63 +1,64 @@
 package main;
 
-import java.awt.Graphics2D;
+import java.awt.GridLayout;
 
-import main_v2.CellOption;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
-public class Column {
-	Cell[] cells;
+public class Column extends JPanel{
 	String name;
-	int posX;
-	int posY;
 	int score;
-	int nCols = 17;
-	CellOption[] cellOptions;
-
+	Cell[] cells;
+	CellOption[] cellOptions = new CellOption[] {
+			CellOption.NAMN,
+			CellOption.ETTOR,
+			CellOption.TVÅOR,
+			CellOption.TREOR,
+			CellOption.FYROR,
+			CellOption.FEMMOR,
+			CellOption.SEXOR,
+			CellOption.BONUS,
+			CellOption.PAR,
+			CellOption.TVÅ_PAR,
+			CellOption.TRISS,
+			CellOption.FYRTAL,
+			CellOption.KÅK,
+			CellOption.LITEN_STEGE,
+			CellOption.STOR_STEGE,
+			CellOption.CHANS,
+			CellOption.YATZY,
+			CellOption.SUMMA,
+			
+	};
 	
-	public Column(String _name, int _posX, int _posY) {
+	public Column(String _name, boolean descriptionColumn) {
 		name = _name;
-		posX = _posX;
-		posY = _posY;
-		cellOptions = new CellOption[] {
-				CellOption.NAMN,
-				CellOption.ETTOR,
-				CellOption.TVÅOR,
-				CellOption.TREOR,
-				CellOption.FYROR,
-				CellOption.FEMMOR,
-				CellOption.SEXOR,
-				CellOption.BONUS,
-				CellOption.PAR,
-				CellOption.TVÅ_PAR,
-				CellOption.TRISS,
-				CellOption.FYRTAL,
-				CellOption.KÅK,
-				CellOption.LITEN_STEGE,
-				CellOption.STOR_STEGE,
-				CellOption.CHANS,
-				CellOption.YATZY,
-				CellOption.SUMMA,
-				
-		};
-		addCells();
-
-					
+		setLayout(new GridLayout(18, 0));
+		cells = new Cell[18];
+		cells[0] = new Cell();
+		cells[0].setText(name);
+		cells[0].setEnabled(false);
+		add(cells[0]);
 		
-	}
-	void addCells() {
-		Cell nameCell = new Cell(posX, posY, ScoreBoard.colWidth, ScoreBoard.cellLength, cellOptions[0]);
-		nameCell.setText(name);
-		nameCell.setEnabled(false);
-		cells = new Cell[1 + nCols];
-		cells[0] = nameCell;
-		for(int i=1; i< 1 + nCols; i++) {
-			cells[i] = new Cell(posX, posY+ (ScoreBoard.cellLength*i), ScoreBoard.colWidth, ScoreBoard.cellLength, cellOptions[i]);
+		
+		for(int i=1; i<cells.length; i++) {
+			Cell c = new Cell();
+			add(c);
+			cells[i] = c;
+			if(descriptionColumn) {
+				c.setText(cellOptions[i].label());
+				c.setEnabled(false);
+			}
 		}
 	}
-	
-	public void render(Graphics2D g) {
+	public Cell getCell(CellOption cellOption) {
+		return cells[cellOption.index()];
+	}
+	public void enableCells(boolean b) {
 		for(Cell c : cells) {
-			c.render(g);
+			if(!c.locked)
+				c.setEnabled(b);
 		}
 	}
+
 }

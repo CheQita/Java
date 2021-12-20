@@ -1,4 +1,4 @@
-package main_v2;
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +15,7 @@ public class DicePanel extends JPanel{
 	Die[] dice;
 	static JButton rollButton;
 	static JLabel info;
+	Player currentPlayer;
 	public DicePanel() {
 		
 		setPreferredSize(new Dimension(450, 250));
@@ -46,7 +47,14 @@ public class DicePanel extends JPanel{
 		rollButton.setPreferredSize(new Dimension(150, 40));
 		rollButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(currentPlayer.nRolls > 0) {
+				currentPlayer.nRolls--;
+				updateInfo();
 				rollDice();
+				}else {
+					//visa meddelande
+					System.out.println("Det kan du icke göra");
+				}
 			}
 		});
 		add(rollButton);
@@ -58,8 +66,13 @@ public class DicePanel extends JPanel{
 		info.setForeground(Color.WHITE);
 		add(info);
 	}
-	public void updateInfo(Player player) {
-		String text = player.name + " har " + player.nRolls + " kast kvar!";
+	
+	public void updateCurrentPlayer(Player player) {
+		currentPlayer = player;
+		updateInfo();
+	}
+	public void updateInfo() {
+		String text = currentPlayer.name + " har " + currentPlayer.nRolls + " kast kvar!";
 		info.setText(text);
 		
 	}
