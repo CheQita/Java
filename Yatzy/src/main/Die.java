@@ -17,7 +17,7 @@ import javax.swing.JButton;
 public class Die extends JButton{
 	Image image;
 	boolean locked = false;
-	int value;
+	int value = 0;
 	public Die() {
 		setPreferredSize(new Dimension(80, 80));
 		setImage(1);

@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,14 +9,23 @@ import javax.swing.JButton;
 public class Cell extends JButton{
 	boolean locked = false;
 	int value = 0;
-	public Cell() {
+	CellOption cellOption;
+	Column col;
+	public Cell(CellOption _cellOption, Column _col) {
+		col = _col;
+		cellOption = _cellOption;
 		setValue(value);
-		
+		setBackground(new Color(0, 100, 0));
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!locked) {
-					setValue(100);
-					//skicka meddelande till Yatsy att det är nästa spelares tur
+					setValue(cellOption.calculateScore(col.dice, col));	
+					lock();
+					setEnabled(false);
+					col.diceReset();
+					col.updateOptionValues(true);
+					col.enableCells(false);
+					Yatsy.nextPlayer();
 				}
 			}
 		});

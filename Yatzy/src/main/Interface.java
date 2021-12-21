@@ -16,7 +16,7 @@ public class Interface extends JFrame{
 	private static int frameWidth = 1000;
 	private static int frameHeight = 800;
 	
-	private static Color backgroundColor = new Color(0, 50, 0);
+	private static Color backgroundColor = new Color(0, 100, 0);
 	
 	private static JFrame frame;
 	static JPanel mainPanel;

@@ -17,6 +17,16 @@ public enum CellOption {
 		int index() {
 			return 1;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 1)
+					result += d.value;
+					
+			}
+			return result;
+			
+		}
 		
 	},
 	TVÅOR{
@@ -26,6 +36,16 @@ public enum CellOption {
 		int index() {
 			return 2;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 2)
+					result += d.value;
+					
+			}
+			return result;
+			
+		}
 	},
 	TREOR{
 		String label() {
@@ -33,6 +53,16 @@ public enum CellOption {
 		}
 		int index() {
 			return 3;
+		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 3)
+					result += d.value;
+					
+			}
+			return result;
+			
 		}
 	},
 	FYROR{
@@ -42,6 +72,16 @@ public enum CellOption {
 		int index() {
 			return 4;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 4)
+					result += d.value;
+					
+			}
+			return result;
+			
+		}
 	},
 	FEMMOR{
 		String label() {
@@ -49,6 +89,16 @@ public enum CellOption {
 		}
 		int index() {
 			return 5;
+		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 5)
+					result += d.value;
+					
+			}
+			return result;
+			
 		}
 	},
 	SEXOR{
@@ -58,6 +108,16 @@ public enum CellOption {
 		int index() {
 			return 6;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				if(d.value == 6)
+					result += d.value;
+					
+			}
+			return result;
+			
+		}
 	},
 	BONUS{
 		String label() {
@@ -65,6 +125,17 @@ public enum CellOption {
 		}
 		int index() {
 			return 7;
+		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(int i= 1; i < 7; i++) {
+				result += column.cells[i].value;
+			}
+			if(result >= 63) {
+				return 50;
+			}
+			return 0;
+			
 		}
 	},
 	PAR{
@@ -100,13 +171,19 @@ public enum CellOption {
 		}
 		int calculateScore(Die[] dice, Column column) {
 			int similarDices = 0;
+			int pairFound = 0;
 			for(Die d1 : dice) {
+				similarDices = 0;
 				for(Die d2 : dice){
 					if (d1.value == d2.value) {
 						similarDices++;
 					}
-					if(similarDices == 4) {
-						return 22;
+					if(similarDices == 2) {
+						similarDices = 0;
+						pairFound ++;
+						if(pairFound == 4) {
+							return 22;
+						}
 					}	
 				}
 			}
@@ -179,7 +256,7 @@ public enum CellOption {
 					if (d1.value == d2.value) {
 						similarDices++;
 					}
-					if(similarDices == 5) {
+					if(similarDices == 10) {
 						return 28;
 					}	
 				}
@@ -211,6 +288,13 @@ public enum CellOption {
 		int index() {
 			return 15;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			int result = 0;
+			for(Die d : dice) {
+				result += d.value;
+			}
+			return result;
+		}
 	},
 	YATZY{
 		String label() {
@@ -241,7 +325,9 @@ public enum CellOption {
 		int calculateScore(Die[] dice, Column column) {
 			int result = 0;
 			for(int i=1; i<column.cells.length-1; i++) {
+				if(column.cells[i].locked == true) {
 				result += column.cells[i].value;
+				}
 			}
 			return result;
 		}

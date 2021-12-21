@@ -51,7 +51,9 @@ public class DicePanel extends JPanel{
 				currentPlayer.nRolls--;	
 				updateInfo();
 				rollDice();
-				currentPlayer.column.updateOptionValues(dice);
+				currentPlayer.column.updateDice(dice);
+				currentPlayer.column.updateOptionValues(false);
+				
 				
 				}else {
 					//visa meddelande
@@ -61,9 +63,15 @@ public class DicePanel extends JPanel{
 		});
 		add(rollButton);
 	}
+	public void diceReset() {
+		for(Die d : dice) {
+			d.locked=false;
+			d.value = 0;
+			d.setImage(1);
+		}
+	}
 	public void addInfoLabel() {
-		info = new JLabel("HEJEHEHEJ");
-		//info.setPreferredSize(new Dimension(150, 40));
+		info = new JLabel();
 		info.setFont(new Font("Serif", Font.PLAIN, 40));
 		info.setForeground(Color.WHITE);
 		add(info);
