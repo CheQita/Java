@@ -1,6 +1,10 @@
 package main;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -75,18 +79,19 @@ public class Column extends JPanel{
 	}
 	public void updateOptionValues(boolean reset) {
 		if(reset)
-			getCell(CellOption.SUMMA).setValue(CellOption.SUMMA.calculateScore(dice, this));
-			getCell(CellOption.BONUS).setValue(CellOption.BONUS.calculateScore(dice, this));
+			getCell(CellOption.SUMMA).setValue(CellOption.SUMMA.calculateScore(dice.clone(), this));
+			getCell(CellOption.BONUS).setValue(CellOption.BONUS.calculateScore(dice.clone(), this));
 		for(CellOption co : cellOptions) {
 			Cell c = getCell(co);
 			if(c.locked != true) {
 				if(reset) {
 					getCell(co).setValue(0);
 				}else {
-					getCell(co).setValue(co.calculateScore(dice, this));
+					getCell(co).setValue(co.calculateScore(dice.clone(), this));
 				}
 			}
 		}
 	}
 
 }
+

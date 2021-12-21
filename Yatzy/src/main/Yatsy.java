@@ -18,7 +18,7 @@ public class Yatsy {
 	
 	
 	public static void main(String[] args) {
-		playerNames = new String[] {"Simon", "Micke", "Hanna", "Matilda"};
+		playerNames = new String[] {"Simon", "Hanna", "Matilda"};
 		Yatsy game = new Yatsy(playerNames);
 	}
 

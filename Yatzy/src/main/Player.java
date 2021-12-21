@@ -4,7 +4,7 @@ public class Player{
 	Column column;
 	String name;
 	int score = 0;
-	int nRolls = 3;
+	int nRolls = 100;
 	public Player(String _name) {
 		name = _name;
 		column = new Column( name, false);

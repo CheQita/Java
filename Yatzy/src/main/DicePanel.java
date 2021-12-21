@@ -52,9 +52,7 @@ public class DicePanel extends JPanel{
 				updateInfo();
 				rollDice();
 				currentPlayer.column.updateDice(dice);
-				currentPlayer.column.updateOptionValues(false);
-				
-				
+				currentPlayer.column.updateOptionValues(false);	
 				}else {
 					//visa meddelande
 					System.out.println("Det kan du icke göra");

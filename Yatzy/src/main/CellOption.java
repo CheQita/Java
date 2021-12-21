@@ -1,5 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public enum CellOption {
 	
 	NAMN{
@@ -250,20 +253,25 @@ public enum CellOption {
 			return 12;
 		}
 		int calculateScore(Die[] dice, Column column) {
-			int similarDices = 0;
-			for(Die d1 : dice) {
-				for(Die d2 : dice){
-					if (d1.value == d2.value) {
-						similarDices++;
-					}
-					if(similarDices == 10) {
-						return 28;
-					}	
-				}
+			int[] amount = { 0, 0, 0, 0, 0, 0 };
+			for(int i=0; i< dice.length; i++) {
+				amount[dice[i].value-1]++;
 			}
+			boolean pairFound = false, trissFound = false;
+			for(int i = 0; i < amount.length && (!trissFound || !pairFound); i++) {
+			       if(!trissFound && amount[i] == 3) {
+			          trissFound = true; 
+			       } else if(!pairFound && amount[i] == 2) {
+			          pairFound = true;
+			       }
+			  }
+
+			  if(trissFound && pairFound) {
+			      return 28;
+			  }
+			
 			return 0;
-				
-			}
+		}
 	},
 	LITEN_STEGE{
 		String label() {
@@ -272,6 +280,25 @@ public enum CellOption {
 		int index() {
 			return 13;
 		}
+		int calculateScore(Die[] dice, Column column) {
+			Die[] dice2 = new Die[dice.length];
+			for(int i=0; i<dice.length; i++) {
+				Die d = new Die();
+				d.value = dice[i].value;
+				dice2[i] = d;
+				
+			}
+			dice2 = sortDice(dice2);
+			if(dice2[0].value != 1) {
+				return 0;
+			}
+			for(int i=0; i< dice2.length - 1; i++) {
+				if(dice2[i].value != (dice2[i+1].value -1)) {
+					return 0;
+				}
+			}
+			return 25;
+		}
 	},
 	STOR_STEGE{
 		String label() {
@@ -279,6 +306,25 @@ public enum CellOption {
 		}
 		int index() {
 			return 14;
+		}
+		int calculateScore(Die[] dice, Column column) {
+			Die[] dice2 = new Die[dice.length];
+			for(int i=0; i<dice.length; i++) {
+				Die d = new Die();
+				d.value = dice[i].value;
+				dice2[i] = d;
+				
+			}
+			dice2 = sortDice(dice2);
+			if(dice2[0].value != 2) {
+				return 0;
+			}
+			for(int i=0; i< dice2.length - 1; i++) {
+				if(dice2[i].value != (dice2[i+1].value -1)) {
+					return 0;
+				}
+			}
+			return 30;
 		}
 	},
 	CHANS{
@@ -349,5 +395,19 @@ public enum CellOption {
 			result += d.value;
 		}
 		return 0;
+	}
+	public Die[] sortDice(Die[] _dice) {	 //Den sorterar arrayen varje gång vilket gör att man spara fel tärning		
+		ArrayList<Integer> diceValues = new ArrayList<Integer>();
+		for(int i=0; i<_dice.length; i++) {
+			diceValues.add(i, _dice[i].value);
+		}
+		Collections.sort(diceValues);
+		for(int i=0; i<_dice.length; i++) {
+			_dice[i].value = diceValues.get(i);
+		}
+		return _dice;
+		
+		
+		
 	}
 }
