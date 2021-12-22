@@ -1,5 +1,7 @@
 package main;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -13,6 +15,7 @@ public class Interface extends JFrame{
 	static JMenuBar menuBar;
 	static JMenu options, help;
 	
+	static Grid grid1, grid2;
 	
 	
 	static int cellSize = 50;
@@ -23,6 +26,7 @@ public class Interface extends JFrame{
 		createFrame(frameWidth, frameHeight);
 		createPanels();
 		createMenuBar();
+		createRandomizeButton();
 		
 		
 		frame.setResizable(false);
@@ -43,8 +47,8 @@ public class Interface extends JFrame{
 		layout.setVgap(100);
 		mainPanel.setLayout(layout);
 		mainPanel.setSize(frameWidth, frameHeight);
-		Grid grid1 = new Grid(50, 100, cellSize);
-		Grid grid2 = new Grid(550, 100, cellSize);
+		grid1 = new Grid(50, 100, cellSize);
+		grid2 = new Grid(550, 100, cellSize);
 		
 		mainPanel.add(grid1);
 		mainPanel.add(grid2);
@@ -62,5 +66,15 @@ public class Interface extends JFrame{
 		menuBar.add(options);
 		menuBar.add(help);
 	
+	}
+	public void createRandomizeButton() {
+		JButton randomize = new JButton("Randomize");
+		randomize.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				grid1.reset();
+				grid1.spawnShips();
+			}
+		});
+		mainPanel.add(randomize);
 	}
 }

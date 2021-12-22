@@ -16,6 +16,7 @@ public class Ship {
 			for(int x=_startPos.x; x<=_startPos.x + (length*_direction.x); x++) {
 				Cell c = grid.cells[y][x];
 				c.color = Color.gray;
+				c.isShip = true;
 				cells.add(c);
 				
 			}
