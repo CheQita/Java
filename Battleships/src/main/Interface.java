@@ -15,14 +15,15 @@ public class Interface extends JFrame{
 	static JMenuBar menuBar;
 	static JMenu options, help;
 	
-	static Grid grid1, grid2;
+	static String[] playerNames;
+	static Player[] players;
 	
 	
 	static int cellSize = 50;
 	static int gridSize = cellSize*10;
 	
-	public Interface(){
-		
+	public Interface(String[] _playerNames){
+		playerNames = _playerNames;
 		createFrame(frameWidth, frameHeight);
 		createPanels();
 		createMenuBar();
@@ -47,11 +48,13 @@ public class Interface extends JFrame{
 		layout.setVgap(100);
 		mainPanel.setLayout(layout);
 		mainPanel.setSize(frameWidth, frameHeight);
-		grid1 = new Grid(50, 100, cellSize);
-		grid2 = new Grid(550, 100, cellSize);
 		
-		mainPanel.add(grid1);
-		mainPanel.add(grid2);
+		players = new Player[playerNames.length];
+		players[0] = new Player(new Grid(50, 100, cellSize), playerNames[0]);
+		players[1] = new ComputerPlayer(new Grid(550, 100, cellSize), playerNames[1]);
+		
+		mainPanel.add(players[0].grid);
+		mainPanel.add(players[1].grid);
 
 		frame.add(mainPanel);
 		
@@ -71,8 +74,8 @@ public class Interface extends JFrame{
 		JButton randomize = new JButton("Randomize");
 		randomize.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				grid1.reset();
-				grid1.spawnShips();
+				players[0].grid.reset();
+				players[0].grid.spawnShips();
 			}
 		});
 		mainPanel.add(randomize);

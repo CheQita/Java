@@ -22,8 +22,26 @@ public class Ship {
 			}
 			
 		}
+		/*
+		for(Cell c : grid.getSurroundingCells(cells)) {
+			c.color = Color.orange;
+		}
+		for(Cell c : cells) {
+			c.color = Color.gray;
+		}
+		*/
 		
 		type = _type;
 		
+	}
+	public boolean isDestroyed() {
+		if(destroyed) {
+			return true;
+		}
+		for(Cell c : cells) {
+			if(!c.isHit)
+				return false;
+		}
+		return true;
 	}
 }

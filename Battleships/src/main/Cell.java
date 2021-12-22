@@ -8,18 +8,26 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class Cell extends JButton{
-	Color color;
+	Color color = Color.white;
 	boolean isHit = false;
 	boolean isShip = false;
 	Point pos;
-	public Cell(Point _pos) {
+	Grid grid;
+	public Cell(Point _pos, Grid _grid) {
 		pos = _pos;
-		color = Color.WHITE;
+		grid = _grid;
 		addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				isHit = true;
+				if(isShip) {
+					grid.updateShips();
+				}
+				Point guess = Interface.players[1].guess();
+				Interface.players[0].grid.cells[guess.y][guess.x].isHit = true;
+				Interface.players[0].grid.repaint();
 			}
 		});
+		//super.getActionListeners()[0].actionPerformed();
 	}
 	
 	
@@ -28,7 +36,12 @@ public class Cell extends JButton{
 	}
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(color);	
+		if(isHit)
+			color = Color.cyan;
+		if(isHit && isShip) 
+			color = Color.gray;
+			
+		g.setColor(color);		
 		g.fillRect(3, 3, getWidth()- 6, getHeight() -6);
 		if(isHit) {
 			g.setColor(Color.red);
@@ -36,7 +49,7 @@ public class Cell extends JButton{
 				drawCross(g);
 				
 			}else {
-				g.fillOval(15, 15, getWidth()-30, getHeight()-30);
+				//g.fillOval(15, 15, getWidth()-30, getHeight()-30);
 			}
 		
 		}
