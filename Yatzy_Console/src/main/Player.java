@@ -9,6 +9,7 @@ public class Player {
 	}
 	public void createScoreBoard() {
 		scoreBoard = new ScoreBoard(this);
+		scoreBoard.setScore("SUMMA", 100);
 	}
 	
 	public void showScoreBoard() {

@@ -35,12 +35,22 @@ public class Yatzy {
 	}
 	
 	public void clearConsole() {
-		
+		for(int i=0; i<50; i++) {
+			System.out.println();
+		}
 	}
 	
 	public void rollDice() {
 		for(Die d : dice) {
 			d.roll();
+		}
+	}
+	public void printDice() {
+		for(int i=0; i<dice[0].face.length; i++) {
+			for(Die d : dice) {
+				System.out.print(d.face[i]+ " ");
+			}
+			System.out.println();
 		}
 	}
 	
@@ -49,16 +59,28 @@ public class Yatzy {
 		int choice;
 		System.out.println("1. Rulla tärningarna");
 		System.out.println("2. Visa poängen");
-		while(true) {
-			choice = input.nextInt();
-			switch(choice) {
-				case 1:
-					rollDice();
-				case 2:
-					currentPlayer.showScoreBoard();
+
+		choice = input.nextInt();
+		switch(choice) {
+			case 1:
 				
-			}
+				clearConsole();
+				rollDice();
+				printDice();
+				break;
+				
+			case 2:
+				
+				clearConsole();
+				System.out.println(choice);
+				currentPlayer.showScoreBoard();
+				break;
+			default:
+				System.out.println("Fel ju!");
+				
+			
 		}
+		
 		
 	}
 	
@@ -67,10 +89,11 @@ public class Yatzy {
 	}
 	
 	public void start() {
-		currentPlayer = players[playerTurn];
-		System.out.println("Nu är det " + currentPlayer.name + "'s tur!");
-		currentPlayer.scoreBoard.printScoreBoard();
-		printMenu();
+		while(true) {
+			currentPlayer = players[playerTurn];
+			System.out.println("Det är " + currentPlayer.name + "'s tur!");
+			printMenu();
+		}
 		
 	}
 	public static void main(String[] args) {
