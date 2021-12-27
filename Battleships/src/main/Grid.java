@@ -5,11 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Grid extends JPanel{
+	Player owner;
+	boolean isPlayer;
 	Cell [][] cells;
 	ArrayList<Ship> ships;
 	int posX, posY;
@@ -21,9 +24,10 @@ public class Grid extends JPanel{
 			ShipType.SUBMARINE,
 			ShipType.DESTROYER,
 	};
-	public Grid(int _posX, int _posY, int _cellSize) {	
+	public Grid(int _posX, int _posY, int _cellSize, boolean _isPlayer) {	
 		posX = _posX;
 		posY = _posY;
+		isPlayer = _isPlayer;
 		setLayout(new GridLayout(gridWidth, gridHeight, -3, -3));
 		setPreferredSize(new Dimension(_cellSize*10, _cellSize*10));
 		setBackground(Color.BLACK);
@@ -44,6 +48,9 @@ public class Grid extends JPanel{
 			for(int x=0; x< 10; x++) {
 				Cell cell = new Cell(new Point(x, y), this);
 				cells[y][x] = cell;
+				if(isPlayer) {
+					cell.setEnabled(false);
+				}
 				add(cell);
 			}
 		}
@@ -55,12 +62,33 @@ public class Grid extends JPanel{
 		repaint();
 		createCells();
 	}
+	public Cell getCell(int x, int y) {
+		return cells[y][x];
+	}
+	public Cell getCell(Point pos) {
+		return cells[pos.y][pos.x];
+	}
 	
+	public boolean guessCell(Point pos){
+		Cell c = getCell(pos.x, pos.y);
+		c.setHit();
+		owner.totalShots++;
+		if(c.isShip) {
+			
+			owner.shotsHit++;
+			return true;
+		}
+		return false;
+		
+		
+		
+	}
 	public Point getRandomPos() {
 		int x = (int) (Math.random() * gridWidth);
 		int y = (int) (Math.random() * gridHeight);
 		return new Point(x, y);
 	}
+	
 	public Point getRandomDir() {
 		if(Math.random() > 0.5) {
 			return new Point(1, 0);		
@@ -68,7 +96,6 @@ public class Grid extends JPanel{
 			return new Point(0, 1);
 		}
 	}
-	
 	
 	public void spawnShips() {
 		ships = new ArrayList<>();
@@ -86,9 +113,9 @@ public class Grid extends JPanel{
 		int length = type.length();
 		for(int y=startPos.y; y<=startPos.y + (length*dir.y); y++) {
 			for(int x=startPos.x; x<=startPos.x + (length*dir.x); x++) {
-				if(inBounds(new Point(x, y))) {
+				if(inBounds(x, y)) {
 					for(Ship s : ships) {	
-						if(getSurroundingCells(s.cells).contains(cells[y][x])) {
+						if(getSurroundingCells(s.cells).contains(getCell(x, y))) {
 							return false;
 						}
 					}
@@ -102,8 +129,9 @@ public class Grid extends JPanel{
 		return true;
 		
 	}
-	public boolean inBounds(Point pos) {
-		if((0<= pos.x && pos.x < 10) && (0<= pos.y && pos.y < 10)) {
+	
+	public boolean inBounds(int x, int y) {
+		if((0<= x && x < 10) && (0<= y && y < 10)) {
 			return true;
 		}
 		return false;
@@ -115,10 +143,10 @@ public class Grid extends JPanel{
 			Point pos = c1.getPos();
 			for(int y= pos.y-1; y<= pos.y+1; y++) {
 				for(int x=pos.x-1; x<=pos.x+1; x++) {
-					if(inBounds(new Point(x, y))) {
+					if(inBounds(x, y)) {
 						//cells[y][x].color = Color.ORANGE;
-						if(!surroundingCells.contains(cells[y][x]))
-							surroundingCells.add(cells[y][x]);
+						if(!surroundingCells.contains(getCell(x, y)))
+							surroundingCells.add(getCell(x, y));
 					}
 				}
 			}
@@ -135,11 +163,19 @@ public class Grid extends JPanel{
 			if(s.isDestroyed()) {
 				s.destroyed = true;
 				for(Cell c : getSurroundingCells(s.cells)) {
-					c.isHit = true;
+					c.isDiscovered = true;
 					repaint();
 				}
 				
 			}
 		}
+	}
+	public Ship getShip(Cell cell) {
+		for(Ship s : ships) {
+			if(s.cells.contains(cell)) {
+				return s;
+			}
+		}
+		return null;
 	}
 }

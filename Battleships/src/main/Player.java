@@ -1,17 +1,21 @@
 package main;
 
-import java.awt.Point;
-
-import javax.swing.JLabel;
-
-public class Player {
+public abstract class Player {
 
 	Grid grid;
+	Grid opponentGrid;
 	String name;
-	public Player(Grid _grid, String _name) {
-		grid = _grid;
+	int totalShots, shotsHit;
+	public Player(Grid _playerGrid, Grid _opponentGrid, String _name) {
+		grid = _playerGrid;
+		opponentGrid = _opponentGrid;
 	}
-	public Point guess() {
-		return null;
+	public double getHitPercentage() {
+		return (double)shotsHit/(double)totalShots;
 	}
+	
+	protected abstract void guess();
+	
+	
+	//initGrid method?
 }

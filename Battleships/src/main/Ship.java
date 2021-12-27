@@ -39,7 +39,7 @@ public class Ship {
 			return true;
 		}
 		for(Cell c : cells) {
-			if(!c.isHit)
+			if(!c.isDiscovered)
 				return false;
 		}
 		return true;

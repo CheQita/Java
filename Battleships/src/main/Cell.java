@@ -9,7 +9,7 @@ import javax.swing.JButton;
 
 public class Cell extends JButton{
 	Color color = Color.white;
-	boolean isHit = false;
+	boolean isDiscovered = false;
 	boolean isShip = false;
 	Point pos;
 	Grid grid;
@@ -18,32 +18,35 @@ public class Cell extends JButton{
 		grid = _grid;
 		addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				isHit = true;
-				if(isShip) {
-					grid.updateShips();
+				boolean hit = grid.guessCell(pos);
+				if(!hit) {									//Annars får man en till tur
+					Interface.players[1].guess();
+					Interface.updateStats();
 				}
-				Point guess = Interface.players[1].guess();
-				Interface.players[0].grid.cells[guess.y][guess.x].isHit = true;
-				Interface.players[0].grid.repaint();
+				
 			}
 		});
-		//super.getActionListeners()[0].actionPerformed();
 	}
-	
+	public void setHit() {
+		isDiscovered = true;
+		if(isShip) {
+			grid.updateShips();
+		}
+	}
 	
 	public Point getPos() {
 		return pos;
 	}
 	@Override
 	public void paintComponent(Graphics g) {
-		if(isHit)
+		if(isDiscovered)
 			color = Color.cyan;
-		if(isHit && isShip) 
+		if(isDiscovered && isShip) 
 			color = Color.gray;
 			
 		g.setColor(color);		
 		g.fillRect(3, 3, getWidth()- 6, getHeight() -6);
-		if(isHit) {
+		if(isDiscovered) {
 			g.setColor(Color.red);
 			if(isShip) {
 				drawCross(g);
@@ -54,6 +57,7 @@ public class Cell extends JButton{
 		
 		}
 	}
+
 	public void drawCross(Graphics g) {
 		g.drawLine(4, 4, getWidth()-4, getHeight()-4);
 		g.drawLine(4, getHeight()-4, getWidth()-4, 4);
