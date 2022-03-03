@@ -82,17 +82,15 @@ public class RouterNode {
 	      if (nodeID == myID) 
 	    	  continue;
 
-	      // Does anyone have a cheaper route to node? 
-	      // Do not check my own DV and only direct neighbors
 	      int cheapest = nbrCosts[nodeID];
 	      int passingNode= nodeID;
-	      for( int nbr = 0; nbr < nbrCosts.length; ++nbr) {			//nbr=neighbour
-	        if (nbr == myID || nbrCosts[nbr] == sim.INFINITY){
+	      for( int nbr = 0; nbr < nbrCosts.length; ++nbr) {			//Loop through our neighbours
+	        if (nbr == myID || nbrCosts[nbr] == sim.INFINITY){	
 	          continue;
 	        }
-	        int costThroughNbr = nbrCosts[nbr] + nodeDistanceVectors[nbr][nodeID];  
+	        int costThroughNbr = nbrCosts[nbr] + nodeDistanceVectors[nbr][nodeID];  	//Calculate the combined cost to the endNode through the neighbour
 
-	        if(costThroughNbr < cheapest) {
+	        if(costThroughNbr < cheapest) {												//Look if that combined path is cheaper
 	          cheapest = costThroughNbr;
 	          passingNode = nbr;
 	        }
@@ -101,13 +99,13 @@ public class RouterNode {
 	      // Do we have a new cheapest route to node?
 	      if(cheapest != nodeDistanceVectors[myID][nodeID]) {
 	        myGUI.println(String.format("Updated cost to node %s. from %s. to %s. Path through node %s\n", nodeID, nodeDistanceVectors[myID][nodeID], cheapest, passingNode));
-	        nodeDistanceVectors[myID][nodeID] = cheapest;
+	        nodeDistanceVectors[myID][nodeID] = cheapest;								//Update the DistanceVector
 	        paths.put(nodeID, passingNode);
 	        changes = true;
 	      }
 	    }
 
-	    if (changes)
+	    if (changes)																	//Only send updates if we changed our DistanceVector
 	     updateOtherNodes();
 	    myGUI.println("Changes has been done. Sending updates");
 	  }
